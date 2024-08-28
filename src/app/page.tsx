@@ -1,113 +1,117 @@
-import Image from "next/image";
+import About from '@/components/About';
+import ContactUs from '@/components/ContactUs';
+import Link from 'next/link';
+import FeaturesSection from './feature/page';
+import FeedbackPage from './feedback/page';
+import ProductsSection from './products/page';
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+	return (
+		<div className="scroll-snap-y mandatory-scroll-snap">
+			<section
+				className="bg-gradient-to-r from-green-600 to-green-800 text-white relative h-screen flex flex-col justify-center items-center snap-start"
+				style={{
+					backgroundImage: 'url(/image/bg-texture.jpg)',
+					backgroundSize: 'cover',
+					backgroundPosition: 'center',
+				}}
+			>
+				<div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+				<div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+					<h1 className="text-5xl md:text-6xl font-extrabold animate-fade-in">
+						Welcome to{' '}
+						<span className="text-yellow-400">Meet N&apos; Sell</span>
+					</h1>
+					<p className="mt-4 text-2xl animate-slide-up">
+						Connecting small businesses with their customers seamlessly.
+					</p>
+					<div className="mt-8 space-x-4">
+						<Link
+							href="/register"
+							className="inline-block bg-white text-green-600 px-8 py-3 rounded-md text-lg font-semibold hover:bg-green-100 transition-transform transform hover:scale-105 animate-bounce"
+						>
+							Get Started
+						</Link>
+						<Link
+							href="/company-registration"
+							className="inline-block bg-yellow-400 text-green-800 px-8 py-3 rounded-md text-lg font-semibold hover:bg-yellow-500 transition-transform transform hover:scale-105 animate-bounce delay-100"
+						>
+							Register Your Brand
+						</Link>
+					</div>
+				</div>
+			</section>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+			<About />
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+			<section className="py-12 snap-start">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<section className="mb-3">
+						<h2 className="text-3xl font-bold text-gray-800 mb-3">
+							Our Features
+						</h2>
+						<hr />
+						<div className="flex flex-row space-x-4 space-y-4">
+							<FeaturesSection />
+						</div>
+					</section>
+					<section className="mb-3">
+						<h2 className="text-3xl font-bold text-gray-800 mb-3">
+							Our Products
+						</h2>
+						<hr />
+						<div className="flex flex-row space-x-4 space-y-4">
+							<ProductsSection />
+						</div>
+					</section>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+					<section className="mb-3">
+						<div className="flex flex-wrap w-[320px] mb-4">
+							<div className="text-3xl font-bold text-gray-800 leading-10">
+								Tailored Experience with
+								<span className="text-green-600"> Meet N&apos; Sell</span>
+							</div>
+						</div>
+						<hr />
+						<div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
+							<div className="bg-green-500 text-white shadow-md rounded-lg p-8 transition-transform transform hover:scale-105 hover:shadow-xl cursor-pointer">
+								<div className="bg-white rounded-md shadow-sm p-3 justify-center items-center">
+									<h3 className="text-xl font-semibold text-green-500">
+										Business Registration
+									</h3>
+								</div>
+								<p className="mt-4 text-white">
+									Easily register your business and get an online presence.
+								</p>
+							</div>
+							<div className="bg-green-500 text-white shadow-md rounded-lg p-8 transition-transform transform hover:scale-105 hover:shadow-xl cursor-pointer">
+								<div className="bg-white rounded-md shadow-sm p-3 justify-center items-center">
+									<h3 className="text-xl font-semibold text-green-500">
+										Customer Care
+									</h3>
+								</div>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+								<p className="mt-4 text-white">
+									Provide top-notch customer care services.
+								</p>
+							</div>
+							<div className="bg-green-500 text-white shadow-md rounded-lg p-8 transition-transform transform hover:scale-105 hover:shadow-xl cursor-pointer">
+								<div className="bg-white rounded-md shadow-sm p-3 justify-center items-center">
+									<h3 className="text-xl font-semibold text-green-500">
+										Instant Messaging
+									</h3>
+								</div>
+								<p className="mt-4 text-white">
+									Stay connected with your customers through instant SMS
+									messaging.
+								</p>
+							</div>
+						</div>
+					</section>
+				</div>
+			</section>
+			<FeedbackPage />
+			<ContactUs />
+		</div>
+	);
 }
