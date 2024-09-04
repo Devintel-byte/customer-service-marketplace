@@ -2,52 +2,52 @@
 'use client';
 
 import axios from 'axios';
-import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-interface CustomJwtPayload extends JwtPayload {
-	id: string;
+interface ICompany {
+	name: string;
+	address: string;
+	category: string;
+	ownerName: string;
+	phone: string;
+	email: string;
+	password: string;
 }
 
 const Dashboard = () => {
-	const [company, setCompany] = useState(null);
+	const [company, setCompany] = useState<ICompany | null>(null);
+	const [error, setError] = useState('');
+
 	const router = useRouter();
 	const params = useParams();
+	console.log('Params:', params);
 	const { id } = params;
 
-	// Function to get the token from localStorage and decode it
-	const getUserFromToken = () => {
-		const token = localStorage.getItem('token');
-		if (!token) return null;
-		try {
-			const decodedToken = jwtDecode<CustomJwtPayload>(token);
-			return decodedToken;
-		} catch (error) {
-			console.error('Failed to decode token:', error);
-			return null;
-		}
-	};
-
 	useEffect(() => {
-		const fetchCompanyDetails = async () => {
-			try {
-				const user = getUserFromToken();
-				if (!user) {
-					router.push('/login'); // Redirect to login if no user is found
-					return;
-				}
-
-				// Fetch company details using the user ID
-				const response = await axios.get(`/api/company/${id}`);
-				setCompany(response.data.company);
-			} catch (error) {
-				console.error('Failed to fetch company details:', error);
-			}
-		};
-
-		if (id) fetchCompanyDetails();
-	}, [id]);
+		if (id) {
+			const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+			axios
+				.get(`/api/company/${id}`, {
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				})
+				.then((response) => {
+					setCompany(response.data.data);
+				})
+				.catch((error) => {
+					console.error('Error fetching company data:', error);
+					setError(error.message);
+					if (error.response?.status === 500) {
+						router.push('/login'); // Redirect to login if there's a server error
+					}
+				});
+		} else {
+			console.error('ID is undefined');
+			router.push('/login'); // Redirect to login if id is undefined
+		}
+	}, [id, router]);
 
 	return (
 		<div className="container mx-auto p-6">
@@ -58,7 +58,8 @@ const Dashboard = () => {
 						<h2 className="text-xl font-semibold">Welcome, {company.name}</h2>
 						<p className="text-gray-700">Address: {company.address}</p>
 						<p className="text-gray-700">Category: {company.category}</p>
-						<p className="text-gray-700">Owner: {company.owner}</p>
+						<p className="text-gray-700">Owner: {company.ownerName}</p>
+						<p className="text-gray-700">Email: {company.email}</p>
 					</div>
 					<div>
 						<button
@@ -76,7 +77,7 @@ const Dashboard = () => {
 					</div>
 				</>
 			) : (
-				<p>Loading contents...</p>
+				<p>Loading Company Data...</p>
 			)}
 		</div>
 	);

@@ -34,6 +34,8 @@ export async function GET(
 		}
 
 		const { id } = params;
+		console.log('Received ID:', id);
+
 		const company = await Company.findById(id);
 
 		if (!company) {
@@ -47,7 +49,8 @@ export async function GET(
 			{ message: 'Company found', success: true, data: company },
 			{ status: 200 }
 		);
-	} catch (error) {
+	} catch (error: any) {
+		console.error('Server error:', error.message);
 		return NextResponse.json(
 			{ message: 'Server error', success: false },
 			{ status: 500 }

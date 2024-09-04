@@ -5,6 +5,7 @@ import React from 'react';
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 	const { id } = useParams();
+	
 	return (
 		<div className="flex h-screen">
 			<aside className="w-64 bg-gray-800 text-white p-4">

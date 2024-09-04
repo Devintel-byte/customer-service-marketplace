@@ -1,6 +1,7 @@
 'use client';
 
 import Loader from '@/components/widgets/Loader';
+import { useUser } from '@/context/UserContext';
 import { useForm } from '@/hooks/useForm';
 import axios from 'axios';
 import Link from 'next/link';
@@ -15,6 +16,7 @@ export default function LoginPage() {
 
 	const [isLoading, setIsLoading] = useState(false);
 	const navigate = useRouter();
+	const { setUserId } = useUser();
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -25,7 +27,14 @@ export default function LoginPage() {
 
 			if (response.data.success) {
 				clearData();
+
+				const token = response.data.token;
+				localStorage.setItem('token', token);
+				console.log('Token set:', token); // Add this line for logging the token
+
 				alert('Login successful!');
+
+				setUserId(response.data.id);
 
 				const query = new URLSearchParams({
 					user: response.data.name,
@@ -33,7 +42,7 @@ export default function LoginPage() {
 
 				// Redirect based on the type
 				if (response.data.type === 'company') {
-					navigate.push('/dashboard');
+					navigate.push(`/dashboard/${response.data.companyId}`);
 				} else {
 					navigate.push(`/?${query}`);
 				}
